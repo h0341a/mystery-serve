@@ -15,6 +15,7 @@
     <description>Demo project for Spring Boot</description>
     <modules>
         <module>startup</module>
+        <module>api</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
