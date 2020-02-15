@@ -3,22 +3,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.4.RELEASE</version>
+        <groupId>com.ccjr</groupId>
+        <artifactId>mystery</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.ccjr</groupId>
-    <artifactId>mystery</artifactId>
+    <artifactId>dao</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>mystery</name>
+    <name>dao</name>
     <description>Demo project for Spring Boot</description>
-    <modules>
-        <module>startup</module>
-        <module>api</module>
-        <module>service</module>
-        <module>dao</module>
-    </modules>
+
     <properties>
         <java.version>1.8</java.version>
     </properties>
@@ -26,7 +20,7 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter</artifactId>
         </dependency>
 
         <dependency>
