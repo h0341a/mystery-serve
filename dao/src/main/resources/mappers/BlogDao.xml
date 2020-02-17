@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccjr.dao.BlogDao">
+  <resultMap id="BaseResultMap" type="com.ccjr.model.dataobject.Blog">
+    <id column="bid" jdbcType="INTEGER" property="bid" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="category_id" jdbcType="TINYINT" property="categoryId" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="visits" jdbcType="BIGINT" property="visits" />
+    <result column="comment" jdbcType="BIGINT" property="comment" />
+    <result column="star" jdbcType="BIGINT" property="star" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    bid, title, category_id, description, content, create_date, visits, `comment`, star
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from blog
+    where bid = #{bid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from blog
+    where bid = #{bid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="bid" keyProperty="bid" parameterType="com.ccjr.model.dataobject.Blog" useGeneratedKeys="true">
+    insert into blog (title, category_id, description, 
+      content, create_date, visits, 
+      `comment`, star)
+    values (#{title,jdbcType=VARCHAR}, #{categoryId,jdbcType=TINYINT}, #{description,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{visits,jdbcType=BIGINT}, 
+      #{comment,jdbcType=BIGINT}, #{star,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" keyColumn="bid" keyProperty="bid" parameterType="com.ccjr.model.dataobject.Blog" useGeneratedKeys="true">
+    insert into blog
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        title,
+      </if>
+      <if test="categoryId != null">
+        category_id,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="visits != null">
+        visits,
+      </if>
+      <if test="comment != null">
+        `comment`,
+      </if>
+      <if test="star != null">
+        star,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null">
+        #{categoryId,jdbcType=TINYINT},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="visits != null">
+        #{visits,jdbcType=BIGINT},
+      </if>
+      <if test="comment != null">
+        #{comment,jdbcType=BIGINT},
+      </if>
+      <if test="star != null">
+        #{star,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ccjr.model.dataobject.Blog">
+    update blog
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null">
+        category_id = #{categoryId,jdbcType=TINYINT},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="visits != null">
+        visits = #{visits,jdbcType=BIGINT},
+      </if>
+      <if test="comment != null">
+        `comment` = #{comment,jdbcType=BIGINT},
+      </if>
+      <if test="star != null">
+        star = #{star,jdbcType=BIGINT},
+      </if>
+    </set>
+    where bid = #{bid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ccjr.model.dataobject.Blog">
+    update blog
+    set title = #{title,jdbcType=VARCHAR},
+      category_id = #{categoryId,jdbcType=TINYINT},
+      description = #{description,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      visits = #{visits,jdbcType=BIGINT},
+      `comment` = #{comment,jdbcType=BIGINT},
+      star = #{star,jdbcType=BIGINT}
+    where bid = #{bid,jdbcType=INTEGER}
+  </update>
+</mapper>
