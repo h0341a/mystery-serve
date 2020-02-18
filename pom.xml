@@ -21,6 +21,7 @@
         <module>dao</module>
         <module>model</module>
         <module>utils</module>
+        <module>response</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
