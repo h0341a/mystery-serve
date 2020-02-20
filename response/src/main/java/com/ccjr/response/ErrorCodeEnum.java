@@ -10,7 +10,9 @@ public enum ErrorCodeEnum implements ErrInfoInterface {
     /**
      * 错误码
      */
-    UNKNOWN_ERROR(1, "未知错误")
+    UNKNOWN_ERROR(1, "未知错误"),
+    USER_NOT_LOGIN(300, "用户未登录"),
+    PARAMETER_INVALID(400, "参数不合法")
     ;
     private int errCode;
     private String errMsg;
