@@ -8,14 +8,13 @@ import com.ccjr.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.ObjectError;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.security.NoSuchAlgorithmException;
 
 /**
@@ -36,7 +35,7 @@ public class UserController {
 
     @ApiOperation("用户登录接口")
     @PostMapping("/login")
-    public Result login(@Validated UserDTO userDTO) throws BusinessException, NoSuchAlgorithmException {
+    public Result login(@Valid UserDTO userDTO) throws BusinessException, NoSuchAlgorithmException {
         int uid = userService.userVerify(userDTO);
         req.getSession().setAttribute("uid", uid);
         return Result.ofSuccess("登录成功");
