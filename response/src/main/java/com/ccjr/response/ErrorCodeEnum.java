@@ -12,6 +12,7 @@ public enum ErrorCodeEnum implements ErrInfoInterface {
      */
     UNKNOWN_ERROR(1, "未知错误"),
     USER_NOT_LOGIN(300, "用户未登录"),
+    USER_VERIFY_FAIL(301, "用户验证失败"),
     PARAMETER_INVALID(400, "参数不合法")
     ;
     private int errCode;

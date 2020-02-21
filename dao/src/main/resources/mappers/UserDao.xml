@@ -15,7 +15,13 @@
     from user
     where `uid` = #{uid,jdbcType=TINYINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Byte">
+  <select id="selectByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user
+    where username = #{uid}
+  </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Byte">
     delete from user
     where `uid` = #{uid,jdbcType=TINYINT}
   </delete>
