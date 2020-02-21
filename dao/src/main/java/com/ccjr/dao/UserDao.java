@@ -1,12 +1,14 @@
 package com.ccjr.dao;
 
 import com.ccjr.model.dataobject.User;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 /**
  * @author mybatis-generator
  */
 @Repository
+@Mapper
 public interface UserDao {
     int deleteByPrimaryKey(Byte uid);
 
