@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
     public int userVerify(UserDTO userDTO) throws NoSuchAlgorithmException, BusinessException {
         User userDb = userDao.selectByUsername(userDTO.getUsername());
         //判断数据库中的密码是否为空且是否与用户输入的是否匹配.
-        if (!StringUtils.isEmpty(userDb.getPassword()) &&
+        if (userDb != null &&
                 StringUtils.equals(userDb.getPassword(), PasswordUtils.toMd5Code(userDTO.getPassword()))) {
             return userDb.getUid();
         }
