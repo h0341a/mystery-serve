@@ -20,7 +20,7 @@ import java.security.NoSuchAlgorithmException;
 /**
  * @author ling
  */
-@Api(tags = "后台用户管理")
+@Api(tags = "管理员登录管理")
 @RestController
 @RequestMapping("/api/admin/user")
 public class UserController {
