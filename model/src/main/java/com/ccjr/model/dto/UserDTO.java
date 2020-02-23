@@ -16,6 +16,6 @@ public class UserDTO {
     private String username;
     @NotBlank(message = "密码不能为空")
     @Length(min = 8, max = 16, message = "密码长度为8-16位")
-    @Pattern(regexp = "[a-zA-Z]*", message = "密码不合法")
+    @Pattern(regexp = "^[0-9a-zA-Z_]+$", message = "密码不合法")
     private String password;
 }
