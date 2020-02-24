@@ -2,13 +2,14 @@ package com.ccjr.service;
 
 import com.ccjr.model.dto.UserDTO;
 import com.ccjr.response.BusinessException;
+import org.springframework.stereotype.Service;
 
 import java.security.NoSuchAlgorithmException;
 
 /**
  * @author ling
  */
-public interface UserService {
+public interface AdminLoginService {
 
 
 
@@ -19,5 +20,5 @@ public interface UserService {
      * @throws NoSuchAlgorithmException 找不到MD5算法
      * @throws BusinessException 业务异常，即用户验证失败
      */
-    public int userVerify(UserDTO userDTO) throws NoSuchAlgorithmException, BusinessException;
+    public int loginVerify(UserDTO userDTO) throws NoSuchAlgorithmException, BusinessException;
 }

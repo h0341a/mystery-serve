@@ -5,7 +5,7 @@ import com.ccjr.model.dataobject.User;
 import com.ccjr.model.dto.UserDTO;
 import com.ccjr.response.BusinessException;
 import com.ccjr.response.ErrorCodeEnum;
-import com.ccjr.service.UserService;
+import com.ccjr.service.AdminLoginService;
 import com.ccjr.utils.PasswordUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -16,15 +16,15 @@ import java.security.NoSuchAlgorithmException;
  * @author ling
  */
 @Service
-public class UserServiceImpl implements UserService {
+public class LoginServiceImpl implements AdminLoginService {
     private final UserDao userDao;
 
-    public UserServiceImpl(UserDao userDao) {
+    public LoginServiceImpl(UserDao userDao) {
         this.userDao = userDao;
     }
 
     @Override
-    public int userVerify(UserDTO userDTO) throws NoSuchAlgorithmException, BusinessException {
+    public int loginVerify(UserDTO userDTO) throws NoSuchAlgorithmException, BusinessException {
         User userDb = userDao.selectByUsername(userDTO.getUsername());
         //判断数据库中的密码是否为空且是否与用户输入的是否匹配.
         if (userDb != null &&

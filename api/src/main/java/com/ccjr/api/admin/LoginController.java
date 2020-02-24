@@ -4,10 +4,9 @@ import com.ccjr.model.dto.UserDTO;
 import com.ccjr.response.BusinessException;
 import com.ccjr.response.ErrorCodeEnum;
 import com.ccjr.response.Result;
-import com.ccjr.service.UserService;
+import com.ccjr.service.AdminLoginService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,20 +22,20 @@ import java.security.NoSuchAlgorithmException;
 @Api(tags = "管理员登录管理")
 @RestController
 @RequestMapping("/api/admin/user")
-public class UserController {
+public class LoginController {
 
     private final HttpServletRequest req;
-    private final UserService userService;
+    private final AdminLoginService loginService;
 
-    public UserController(HttpServletRequest req, UserService userService) {
+    public LoginController(HttpServletRequest req, AdminLoginService loginService) {
         this.req = req;
-        this.userService = userService;
+        this.loginService = loginService;
     }
 
     @ApiOperation("用户登录接口")
     @PostMapping("/login")
     public Result login(@Valid UserDTO userDTO) throws BusinessException, NoSuchAlgorithmException {
-        int uid = userService.userVerify(userDTO);
+        int uid = loginService.loginVerify(userDTO);
         req.getSession().setAttribute("uid", uid);
         return Result.ofSuccess("登录成功");
     }
