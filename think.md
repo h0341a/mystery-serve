@@ -1,0 +1,1 @@
+&emsp;Multiple modules may make my code representation more concise, but I haven't found that it will speed up my implementation and reduce it.Maybe I can finish each module separately.
