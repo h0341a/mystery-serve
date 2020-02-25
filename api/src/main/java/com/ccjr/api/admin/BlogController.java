@@ -1,9 +1,13 @@
 package com.ccjr.api.admin;
 
 import com.ccjr.model.dto.BlogDTO;
+import com.ccjr.response.BusinessException;
 import com.ccjr.response.Result;
+import com.ccjr.service.AdminBlogService;
+import com.ccjr.service.impl.BlogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -13,6 +17,13 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/admin/")
 public class BlogController {
+
+    private final AdminBlogService blogService;
+
+    public BlogController(AdminBlogService blogService) {
+        this.blogService = blogService;
+    }
+
     @ApiOperation("获取博客列表")
     @GetMapping("/blogList")
     public Result blogList(){
@@ -24,11 +35,12 @@ public class BlogController {
 
     @ApiOperation("创建一个新博客")
     @PostMapping("/blog")
-    public Result newBlog(BlogDTO blogDTO){
+    public Result newBlog(BlogDTO blogDTO) throws BusinessException {
         //用户验证
         //将blogDTO传入到service
+        blogService.addNewBlog(blogDTO);
         //返回结果
-        return null;
+        return Result.ofSuccess("插入成功");
     }
 
     @ApiOperation("删除一个博客")

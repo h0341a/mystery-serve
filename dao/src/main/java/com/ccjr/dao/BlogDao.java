@@ -1,10 +1,14 @@
 package com.ccjr.dao;
 
 import com.ccjr.model.dataobject.Blog;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 /**
  * @author mybatis-generator
  */
+@Repository
+@Mapper
 public interface BlogDao {
     int deleteByPrimaryKey(Integer bid);
 
