@@ -10,9 +10,9 @@ import com.ccjr.response.BusinessException;
 import com.ccjr.response.ErrorCodeEnum;
 import com.ccjr.service.AdminBlogService;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,15 +29,24 @@ public class BlogService implements AdminBlogService {
         this.categoryDao = categoryDao;
     }
 
+
     @Override
-    public List<BlogVO> getBlogList() {
-        return null;
+    public List<BlogVO> getBlogList() throws BusinessException {
+        List<Blog> blogList = blogDao.selectAll();
+        List<BlogVO> blogVOList = new ArrayList<>();
+        for (Blog blog:blogList){
+            BlogCategory category = categoryDao.selectByPrimaryKey(blog.getCategoryId());
+            //todo 可以通过数据库外键来解决这个问题的出现
+            if (category == null){
+                throw new BusinessException(ErrorCodeEnum.DATA_ABORT, "文章分类未找到");
+            }
+            blogVOList.add(this.convertBlog(blog, category.getName()));
+        }
+        return blogVOList;
     }
 
     @Override
     public void addNewBlog(BlogDTO blogDTO) throws BusinessException {
-        //将dto转换为dataobject
-        Blog blog = this.convertBlogDTO(blogDTO);
         //如果博客分组名获取分组id
         Integer cid = categoryDao.selectIdByName(blogDTO.getCategory());
         //没有该分组则新建分组
@@ -47,8 +56,9 @@ public class BlogService implements AdminBlogService {
             if (categoryDao.insertSelective(category) == 0) {
                 throw new BusinessException(ErrorCodeEnum.DB_OPERATION_FAIL, "插入新博客分组出错");
             }
-            blog.setCategoryId(category.getId());
+            cid = Integer.valueOf(category.getId());
         }
+        Blog blog = this.convertBlogDTO(blogDTO, cid);
         if (blogDao.insertSelective(blog) == 0) {
             throw new BusinessException(ErrorCodeEnum.DB_OPERATION_FAIL, "插入新博客出错");
         }
@@ -58,14 +68,25 @@ public class BlogService implements AdminBlogService {
      * 将blogDto转换为blog
      *
      * @param blogDTO 待转换对象
+     * @param categoryId 分类id
      * @return 转换后的blog
      */
-    private Blog convertBlogDTO(BlogDTO blogDTO) {
+    private Blog convertBlogDTO(BlogDTO blogDTO, int categoryId) {
         Blog blog = new Blog();
         blog.setTitle(blogDTO.getTitle());
         blog.setDescription(blogDTO.getDescription());
         blog.setContent(blogDTO.getContent());
         return blog;
-
+    }
+    /**
+     * 将blogDataObject转换为vo
+     * @param blog 待转换的dataobject
+     * @return 转换后的结果
+     */
+    private BlogVO convertBlog(Blog blog, String categoryName){
+        BlogVO blogVO = new BlogVO();
+        BeanUtils.copyProperties(blog, blogVO);
+        blogVO.setCategory(categoryName);
+        return blogVO;
     }
 }

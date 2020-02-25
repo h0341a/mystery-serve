@@ -1,6 +1,8 @@
 package com.ccjr.api.admin;
 
+import com.ccjr.model.dataobject.Blog;
 import com.ccjr.model.dto.BlogDTO;
+import com.ccjr.model.vo.BlogVO;
 import com.ccjr.response.BusinessException;
 import com.ccjr.response.Result;
 import com.ccjr.service.AdminBlogService;
@@ -9,6 +11,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author ling
@@ -24,13 +29,15 @@ public class BlogController {
         this.blogService = blogService;
     }
 
+    //todo 分页功能待实现
     @ApiOperation("获取博客列表")
     @GetMapping("/blogList")
-    public Result blogList(){
+    public Result blogList() throws BusinessException {
         //用户验证
         //blogService获取结果
+        List<BlogVO> blogVOList = blogService.getBlogList();
         //返回
-        return null;
+        return Result.ofSuccess(blogVOList);
     }
 
     @ApiOperation("创建一个新博客")
@@ -60,4 +67,6 @@ public class BlogController {
         //返回结果
         return null;
     }
+
+
 }

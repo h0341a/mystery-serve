@@ -14,7 +14,8 @@ public enum ErrorCodeEnum implements ErrInfoInterface {
     USER_NOT_LOGIN(300, "用户未登录"),
     USER_VERIFY_FAIL(301, "用户验证失败"),
     PARAMETER_INVALID(400, "参数不合法"),
-    DB_OPERATION_FAIL(500, "数据库操作出错")
+    DB_OPERATION_FAIL(500, "数据库操作出错"),
+    DATA_ABORT(501,"数据库内部数据出现异常")
     ;
     private int errCode;
     private String errMsg;

@@ -4,6 +4,8 @@ import com.ccjr.model.dataobject.Blog;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author mybatis-generator
  */
@@ -17,6 +19,7 @@ public interface BlogDao {
     int insertSelective(Blog record);
 
     Blog selectByPrimaryKey(Integer bid);
+    List<Blog> selectAll();
 
     int updateByPrimaryKeySelective(Blog record);
 

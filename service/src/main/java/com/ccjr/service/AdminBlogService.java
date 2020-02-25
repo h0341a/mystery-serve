@@ -1,5 +1,6 @@
 package com.ccjr.service;
 
+import com.ccjr.model.dataobject.Blog;
 import com.ccjr.model.dto.BlogDTO;
 import com.ccjr.model.vo.BlogVO;
 import com.ccjr.response.BusinessException;
@@ -15,7 +16,7 @@ public interface AdminBlogService {
      * 获取博客列表
      * @return 博客列表
      */
-    public List<BlogVO> getBlogList();
+    public List<BlogVO> getBlogList() throws BusinessException;
 
     /**
      * 添加新博客
