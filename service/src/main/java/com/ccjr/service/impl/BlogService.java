@@ -9,6 +9,7 @@ import com.ccjr.model.vo.BlogVO;
 import com.ccjr.response.BusinessException;
 import com.ccjr.response.ErrorCodeEnum;
 import com.ccjr.service.AdminBlogService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -47,20 +48,26 @@ public class BlogService implements AdminBlogService {
 
     @Override
     public void addNewBlog(BlogDTO blogDTO) throws BusinessException {
-        //如果博客分组名获取分组id
-        Integer cid = categoryDao.selectIdByName(blogDTO.getCategory());
-        //没有该分组则新建分组
-        if (cid == null || cid == 0) {
-            BlogCategory category = new BlogCategory();
-            category.setName(blogDTO.getCategory());
-            if (categoryDao.insertSelective(category) == 0) {
-                throw new BusinessException(ErrorCodeEnum.DB_OPERATION_FAIL, "插入新博客分组出错");
-            }
-            cid = Integer.valueOf(category.getId());
-        }
-        Blog blog = this.convertBlogDTO(blogDTO, cid);
+        Blog blog = this.convertBlogDTO(blogDTO, this.getCategoryIdByName(blogDTO.getCategory()));
+        System.out.println(blog.getCategoryId());
         if (blogDao.insertSelective(blog) == 0) {
             throw new BusinessException(ErrorCodeEnum.DB_OPERATION_FAIL, "插入新博客出错");
+        }
+    }
+
+    @Override
+    public void deleteBlog(int bid) throws BusinessException {
+        if (blogDao.deleteByPrimaryKey(bid) != 1){
+            throw new BusinessException(ErrorCodeEnum.DATA_ABORT, "没有你要删除的博客");
+        }
+    }
+
+    @Override
+    public void updateBlog(int bid, BlogDTO blogDTO) throws BusinessException {
+        Blog blog = this.convertBlogDTO(blogDTO, this.getCategoryIdByName(blogDTO.getCategory()));
+        blog.setBid(bid);
+        if(blogDao.updateByPrimaryKeySelective(blog) != 1){
+            throw new BusinessException(ErrorCodeEnum.DATA_ABORT, "没有找到该博客");
         }
     }
 
@@ -76,6 +83,7 @@ public class BlogService implements AdminBlogService {
         blog.setTitle(blogDTO.getTitle());
         blog.setDescription(blogDTO.getDescription());
         blog.setContent(blogDTO.getContent());
+        blog.setCategoryId((byte) categoryId);
         return blog;
     }
     /**
@@ -88,5 +96,28 @@ public class BlogService implements AdminBlogService {
         BeanUtils.copyProperties(blog, blogVO);
         blogVO.setCategory(categoryName);
         return blogVO;
+    }
+
+    /**
+     * 根据分类名获取分类id
+     * @param categoryName 分类名
+     * @return 分类id
+     */
+    private Integer getCategoryIdByName(String categoryName) throws BusinessException {
+        if (StringUtils.isEmpty(categoryName)){
+            categoryName = "未分类";
+        }
+        //如果博客分组名获取分组id
+        Integer categoryId = categoryDao.selectIdByName(categoryName);
+        //没有该分组则新建分组
+        if (categoryId == null || categoryId == 0) {
+            BlogCategory category = new BlogCategory();
+            category.setName(categoryName);
+            if (categoryDao.insertSelective(category) == 0) {
+                throw new BusinessException(ErrorCodeEnum.DB_OPERATION_FAIL, "插入新博客分组出错");
+            }
+            categoryId = Integer.valueOf(category.getId());
+        }
+        return categoryId;
     }
 }

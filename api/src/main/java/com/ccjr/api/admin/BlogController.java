@@ -10,6 +10,7 @@ import com.ccjr.service.impl.BlogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ public class BlogController {
 
     @ApiOperation("创建一个新博客")
     @PostMapping("/blog")
-    public Result newBlog(BlogDTO blogDTO) throws BusinessException {
+    public Result newBlog(@Validated BlogDTO blogDTO) throws BusinessException {
         //用户验证
         //将blogDTO传入到service
         blogService.addNewBlog(blogDTO);
@@ -52,20 +53,22 @@ public class BlogController {
 
     @ApiOperation("删除一个博客")
     @DeleteMapping("/blog/{bid}")
-    public Result deleteBlog(@PathVariable("bid") Integer bid){
+    public Result deleteBlog(@PathVariable("bid") Integer bid) throws BusinessException {
         //用户验证
         //传入到service
+        blogService.deleteBlog(bid);
         //返回结果
-        return null;
+        return Result.ofSuccess("删除成功");
     }
 
     @ApiOperation("编辑一个博客")
     @PutMapping("/blog/{bid}")
-    public Result alterBlog(@PathVariable("bid") Integer bid, BlogDTO blogDTO){
+    public Result alterBlog(@PathVariable("bid") Integer bid,@Validated BlogDTO blogDTO) throws BusinessException {
         //用户验证
         //传入service
+        blogService.updateBlog(bid, blogDTO);
         //返回结果
-        return null;
+        return Result.ofSuccess("编辑成功");
     }
 
 

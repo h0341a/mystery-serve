@@ -24,4 +24,16 @@ public interface AdminBlogService {
      */
     public void addNewBlog(BlogDTO blogDTO) throws BusinessException;
 
+    /**
+     * 根据博客id删除博客
+     * @param bid 博客id
+     */
+    public void deleteBlog(int bid) throws BusinessException;
+
+    /**
+     * 修改博客
+     * @param bid 博客id
+     * @param blogDTO 博客信息
+     */
+    public void updateBlog(int bid, BlogDTO blogDTO) throws BusinessException;
 }
