@@ -41,6 +41,13 @@ public class BlogController {
         return Result.ofSuccess(blogVOList);
     }
 
+    @ApiOperation("根据分类获取博客列表")
+    @GetMapping("/blogList/{category}")
+    public Result blogListByCategory(@PathVariable("category") String categoryName) throws BusinessException {
+        List<BlogVO> blogVOList = blogService.getBlogList(categoryName);
+        return Result.ofSuccess(blogVOList);
+    }
+
     @ApiOperation("创建一个新博客")
     @PostMapping("/blog")
     public Result newBlog(@Validated BlogDTO blogDTO) throws BusinessException {

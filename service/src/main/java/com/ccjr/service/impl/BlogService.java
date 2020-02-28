@@ -34,16 +34,17 @@ public class BlogService implements AdminBlogService {
     @Override
     public List<BlogVO> getBlogList() throws BusinessException {
         List<Blog> blogList = blogDao.selectAll();
-        List<BlogVO> blogVOList = new ArrayList<>();
-        for (Blog blog:blogList){
-            BlogCategory category = categoryDao.selectByPrimaryKey(blog.getCategoryId());
-            //todo 可以通过数据库外键来解决这个问题的出现
-            if (category == null){
-                throw new BusinessException(ErrorCodeEnum.DATA_ABORT, "文章分类未找到");
-            }
-            blogVOList.add(this.convertBlog(blog, category.getName()));
+        return this.convertBlogList(blogList);
+    }
+
+    @Override
+    public List<BlogVO> getBlogList(String categoryName) throws BusinessException {
+        Integer cid = categoryDao.selectIdByName(categoryName);
+        if (cid == null){
+            throw new BusinessException(ErrorCodeEnum.DATA_ABORT, "没有该分组");
         }
-        return blogVOList;
+        List<Blog> blogList = blogDao.selectByCategoryId(cid);
+        return this.convertBlogList(blogList);
     }
 
     @Override
@@ -96,6 +97,25 @@ public class BlogService implements AdminBlogService {
         BeanUtils.copyProperties(blog, blogVO);
         blogVO.setCategory(categoryName);
         return blogVO;
+    }
+
+    /**
+     * 将blogList转换为blogVoList
+     * @param blogList 待传入的blogList
+     * @return blogVoList
+     * @throws BusinessException 分类未找到
+     */
+    private List<BlogVO> convertBlogList(List<Blog> blogList) throws BusinessException {
+        List<BlogVO> blogVOList = new ArrayList<>();
+        for (Blog blog:blogList){
+            BlogCategory category = categoryDao.selectByPrimaryKey(blog.getCategoryId());
+            //todo 可以通过数据库外键来解决这个问题的出现
+            if (category == null){
+                throw new BusinessException(ErrorCodeEnum.DATA_ABORT, "文章分类未找到");
+            }
+            blogVOList.add(this.convertBlog(blog, category.getName()));
+        }
+        return blogVOList;
     }
 
     /**

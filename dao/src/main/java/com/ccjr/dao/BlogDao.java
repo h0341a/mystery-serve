@@ -20,7 +20,7 @@ public interface BlogDao {
 
     Blog selectByPrimaryKey(Integer bid);
     List<Blog> selectAll();
-
+    List<Blog> selectByCategoryId(Integer categoryId);
     int updateByPrimaryKeySelective(Blog record);
 
     int updateByPrimaryKey(Blog record);

@@ -19,6 +19,12 @@ public interface AdminBlogService {
     public List<BlogVO> getBlogList() throws BusinessException;
 
     /**
+     * 根据分类名获取博客列表
+     * @return 博客列表
+     */
+    public List<BlogVO> getBlogList(String categoryName) throws BusinessException;
+
+    /**
      * 添加新博客
      * @param blogDTO 博客信息
      */
