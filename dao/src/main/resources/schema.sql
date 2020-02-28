@@ -20,7 +20,7 @@ CREATE TABLE blog(
     visits BIGINT DEFAULT 0,
     comment BIGINT DEFAULT 0,
     star BIGINT DEFAULT 0,
-    FOREIGN KEY (`category_id`) REFERENCES blog_category(`id`)
+    FOREIGN KEY (`category_id`) REFERENCES blog_category(`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE comment(
@@ -32,5 +32,5 @@ CREATE TABLE comment(
     star_count INTEGER DEFAULT 0,
     parent_cid INTEGER DEFAULT 0,
     create_date DATETIME NOT NULL DEFAULT NOW(),
-    FOREIGN KEY (`blog_id`) REFERENCES blog(bid)
+    FOREIGN KEY (`blog_id`) REFERENCES blog(bid) ON DELETE CASCADE ON UPDATE CASCADE
 );
