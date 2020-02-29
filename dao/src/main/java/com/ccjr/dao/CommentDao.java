@@ -1,10 +1,14 @@
 package com.ccjr.dao;
 
 import com.ccjr.model.dataobject.Comment;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * @author mybatis-generator
  */
+@Repository
 public interface CommentDao {
     int deleteByPrimaryKey(Integer cid);
 
@@ -13,6 +17,7 @@ public interface CommentDao {
     int insertSelective(Comment record);
 
     Comment selectByPrimaryKey(Integer cid);
+    List<Comment> selectByParentId(Integer parentId);
 
     int updateByPrimaryKeySelective(Comment record);
 
