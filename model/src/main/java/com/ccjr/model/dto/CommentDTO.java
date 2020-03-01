@@ -6,7 +6,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 @Data
-public class CommentDto {
+public class CommentDTO {
 
     @NotBlank(message = "昵称不能为空")
     private String nickName;
