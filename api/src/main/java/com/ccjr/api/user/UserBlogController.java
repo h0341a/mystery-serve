@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "普通用户可以对博客进行的操作")
 @RestController
 @RequestMapping("/api/user/")
-public class BlogController {
+public class UserBlogController {
 
     /**
      * 获取分组列表
