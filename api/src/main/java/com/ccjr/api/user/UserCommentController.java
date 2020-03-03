@@ -30,22 +30,17 @@ public class UserCommentController {
         return Result.ofSuccess("提交成功");
     }
 
-    @ApiOperation("删除评论")
-    @DeleteMapping("/comment/{cid}")
-    public void deleteComment(@PathVariable("cid") Integer cid){
-
-    }
-
     @ApiOperation("回复评论")
-    @DeleteMapping("/comment/{cid}/comment")
-    public void answerComment(@PathVariable("cid") Integer cid, Comment comment){
-
+    @PostMapping("/comment/{cid}/comment")
+    public Result answerComment(@PathVariable("cid") Integer cid, @Validated CommentDTO commentDTO) throws BusinessException {
+        commentService.answerComment(cid, commentDTO);
+        return Result.ofSuccess("回复成功");
     }
 
     @ApiOperation("获取某一博客下的全部评论")
     @GetMapping("/blog/{bid}/commentList")
-    public void commentList(@PathVariable("bid") Integer bid){
-
+    public Result commentList(@PathVariable("bid") Integer bid){
+        return Result.ofSuccess(commentService.getCommentListByBlogId(bid));
     }
 
 }

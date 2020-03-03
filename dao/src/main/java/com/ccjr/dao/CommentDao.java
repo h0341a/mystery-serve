@@ -20,6 +20,7 @@ public interface CommentDao {
 
     Comment selectByPrimaryKey(Integer cid);
     List<Comment> selectByParentId(Integer parentId);
+    List<Comment> selectByBlogId(Integer blogId);
 
     int updateByPrimaryKeySelective(Comment record);
 

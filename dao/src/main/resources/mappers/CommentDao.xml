@@ -26,7 +26,13 @@
         from comment
         where parent_cid = #{parentId}
     </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="selectByBlogId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from comment
+        where blog_id = #{blogId} and parent_cid=0
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete
         from comment
         where cid = #{cid,jdbcType=INTEGER}
