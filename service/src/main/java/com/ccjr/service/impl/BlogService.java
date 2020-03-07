@@ -9,6 +9,7 @@ import com.ccjr.model.vo.BlogVO;
 import com.ccjr.response.BusinessException;
 import com.ccjr.response.ErrorCodeEnum;
 import com.ccjr.service.AdminBlogService;
+import com.ccjr.service.UserBlogService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ import java.util.List;
  * @author ling
  */
 @Service
-public class BlogService implements AdminBlogService {
+public class BlogService implements AdminBlogService, UserBlogService {
 
     private final BlogDao blogDao;
     private final BlogCategoryDao categoryDao;
@@ -32,13 +33,18 @@ public class BlogService implements AdminBlogService {
 
 
     @Override
+    public List<String> getCategoryList() {
+        return null;
+    }
+
+    @Override
     public List<BlogVO> getBlogList() throws BusinessException {
         List<Blog> blogList = blogDao.selectAll();
         return this.convertBlogList(blogList);
     }
 
     @Override
-    public List<BlogVO> getBlogList(String categoryName) throws BusinessException {
+    public List<BlogVO> getBlogListByCategoryName(String categoryName) throws BusinessException {
         Integer cid = categoryDao.selectIdByName(categoryName);
         if (cid == null){
             throw new BusinessException(ErrorCodeEnum.DATA_ABORT, "没有该分组");

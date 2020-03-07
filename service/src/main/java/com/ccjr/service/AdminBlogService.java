@@ -22,7 +22,7 @@ public interface AdminBlogService {
      * 根据分类名获取博客列表
      * @return 博客列表
      */
-    public List<BlogVO> getBlogList(String categoryName) throws BusinessException;
+    public List<BlogVO> getBlogListByCategoryName(String categoryName) throws BusinessException;
 
     /**
      * 添加新博客

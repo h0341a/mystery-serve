@@ -44,7 +44,7 @@ public class BlogController {
     @ApiOperation("根据分类获取博客列表")
     @GetMapping("/blogList/{category}")
     public Result blogListByCategory(@PathVariable("category") String categoryName) throws BusinessException {
-        List<BlogVO> blogVOList = blogService.getBlogList(categoryName);
+        List<BlogVO> blogVOList = blogService.getBlogListByCategoryName(categoryName);
         return Result.ofSuccess(blogVOList);
     }
 
