@@ -34,7 +34,7 @@ public class BlogService implements AdminBlogService, UserBlogService {
 
     @Override
     public List<String> getCategoryList() {
-        return null;
+        return categoryDao.selectAllName();
     }
 
     @Override

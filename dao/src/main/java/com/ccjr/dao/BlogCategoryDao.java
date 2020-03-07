@@ -4,6 +4,8 @@ import com.ccjr.model.dataobject.BlogCategory;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author mybatis-generator
  */
@@ -24,6 +26,7 @@ public interface BlogCategoryDao {
      * @return 分组id
      */
     Integer selectIdByName(String categoryName);
+    List<String> selectAllName();
 
     int updateByPrimaryKeySelective(BlogCategory record);
 
