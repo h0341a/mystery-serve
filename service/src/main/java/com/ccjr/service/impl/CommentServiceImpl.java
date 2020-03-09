@@ -31,7 +31,11 @@ public class CommentServiceImpl implements AdminCommentService, UserCommentServi
     public List<CommentVO> getCommentList() {
         //获取所有的父评论
         List<Comment> commentList = commentDao.selectByParentId(0);
-        return null;
+        List<CommentVO> commentVOList = this.convertCommentList(commentList);
+        commentVOList.forEach(commentVO -> {
+            commentVO.setChildren(this.getChild(commentVO.getCid()));
+        });
+        return commentVOList;
     }
 
     @Override

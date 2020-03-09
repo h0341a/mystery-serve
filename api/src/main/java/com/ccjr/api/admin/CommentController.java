@@ -1,9 +1,11 @@
 package com.ccjr.api.admin;
 
 import com.ccjr.response.Result;
+import com.ccjr.service.AdminCommentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.models.auth.In;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -13,13 +15,20 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/admin/")
 public class CommentController {
+
+    private final AdminCommentService commentService;
+
+    public CommentController(AdminCommentService adminCommentService) {
+        this.commentService = adminCommentService;
+    }
+
     @ApiOperation("获取评论列表")
     @GetMapping("/comments")
     public Result commentList(){
         //用户验证
         //CommentService获取结果
+        return Result.ofSuccess(commentService.getCommentList());
         //返回
-        return null;
     }
 
     @ApiOperation("删除评论接口")

@@ -12,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * @author ling
+ */
 @Api(tags = "普通用户可以进行的评论操作")
 @RestController
 @RequestMapping("/api/user/")
