@@ -87,6 +87,7 @@ public class CommentServiceImpl implements AdminCommentService, UserCommentServi
     private CommentVO convertComment(Comment comment){
         CommentVO commentVO = new CommentVO();
         BeanUtils.copyProperties(comment, commentVO);
+        commentVO.setBlogTitle(blogDao.selectByPrimaryKey(comment.getBlogId()).getTitle());
         return commentVO;
     }
 
