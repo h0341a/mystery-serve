@@ -29,4 +29,9 @@ public interface AdminCommentService {
      */
     public List<CommentVO> getCommentListByBid(Integer bid);
 
+    /**
+     * 删除评论
+     * @param cid 评论id
+     */
+    public void deleteComment(Integer cid);
 }

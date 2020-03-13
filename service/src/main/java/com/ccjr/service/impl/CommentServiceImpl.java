@@ -49,6 +49,14 @@ public class CommentServiceImpl implements AdminCommentService, UserCommentServi
     }
 
     @Override
+    public void deleteComment(Integer cid) {
+        Comment comment = new Comment();
+        comment.setCid(cid);
+        comment.setContent("该评论已被删除!");
+        commentDao.updateByPrimaryKeySelective(comment);
+    }
+
+    @Override
     public void addNewComment(Integer bid, CommentDTO commentDTO) throws BusinessException {
         if(blogDao.selectByPrimaryKey(bid) == null){
             throw new BusinessException(ErrorCodeEnum.DATA_ABORT, "没有该博客");

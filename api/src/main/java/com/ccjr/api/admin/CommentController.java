@@ -36,8 +36,9 @@ public class CommentController {
     public Result deleteComment(@PathVariable Integer cid){
         //用户验证
         //传入CommentService
+        commentService.deleteComment(cid);
         //返回
-        return null;
+        return Result.ofSuccess("删除成功");
     }
 
     @ApiOperation("管理员回复评论")
