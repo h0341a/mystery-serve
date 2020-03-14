@@ -39,8 +39,12 @@ public class CommentServiceImpl implements AdminCommentService, UserCommentServi
     }
 
     @Override
-    public void AnswerYouByMyAnswer(Integer cid) {
-
+    public void answerYouByMyAnswer(Comment comment) throws BusinessException {
+        Comment parentComment = commentDao.selectByPrimaryKey(comment.getParentCid());
+        comment.setBlogId(parentComment.getBlogId());
+        if(commentDao.insertSelective(comment) !=1){
+            throw new BusinessException(ErrorCodeEnum.DB_OPERATION_FAIL, "插入失败");
+        }
     }
 
     @Override

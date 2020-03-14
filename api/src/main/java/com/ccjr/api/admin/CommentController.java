@@ -1,10 +1,14 @@
 package com.ccjr.api.admin;
 
+import com.ccjr.model.dataobject.Comment;
+import com.ccjr.response.BusinessException;
+import com.ccjr.response.ErrorCodeEnum;
 import com.ccjr.response.Result;
 import com.ccjr.service.AdminCommentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.models.auth.In;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,11 +47,18 @@ public class CommentController {
 
     @ApiOperation("管理员回复评论")
     @PostMapping("/comment/{cid}")
-    public Result answerComment(@PathVariable Integer cid, String answerContent){
+    public Result answerComment(@PathVariable Integer cid, String answerContent) throws BusinessException {
         //用户验证
         //参数校验
-        //传入CommentService
+        if(StringUtils.isEmpty(answerContent)){
+            return Result.ofFail(ErrorCodeEnum.PARAMETER_INVALID, "回复内容不能为空");
+        }
+        Comment comment = new Comment();
+        comment.setNickname("作者本人");
+        comment.setContent(answerContent);
+        comment.setParentCid(cid);
+        commentService.answerYouByMyAnswer(comment);
         //返回
-        return null;
+        return Result.ofSuccess("添加成功");
     }
 }

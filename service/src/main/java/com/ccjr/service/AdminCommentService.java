@@ -2,6 +2,7 @@ package com.ccjr.service;
 
 import com.ccjr.model.dataobject.Comment;
 import com.ccjr.model.vo.CommentVO;
+import com.ccjr.response.BusinessException;
 
 import java.util.List;
 
@@ -18,9 +19,10 @@ public interface AdminCommentService {
     
     /**
      * 回复某一评论
-     * @param cid 评论id
+     * @param comment 评论信息
+     * @throws  BusinessException 业务异常
      */
-    public void AnswerYouByMyAnswer(Integer cid);
+    public void answerYouByMyAnswer(Comment comment) throws BusinessException;
 
     /**
      * 根据博客id获取评论列表
