@@ -67,6 +67,12 @@ public class BlogController {
         //返回结果
         return Result.ofSuccess("删除成功");
     }
+    @ApiOperation("分组列表")
+    @GetMapping("/categoryList")
+    public Result categoryList(){
+        List<String> categoryList = blogService.getCategoryList();
+        return Result.ofSuccess(categoryList);
+    }
 
     @ApiOperation("编辑一个博客")
     @PutMapping("/blog/{bid}")

@@ -31,6 +31,11 @@ public interface AdminBlogService {
     public void addNewBlog(BlogDTO blogDTO) throws BusinessException;
 
     /**
+     * 获取分组列表
+     * @return 分组列表
+     */
+    public List<String> getCategoryList();
+    /**
      * 根据博客id删除博客
      * @param bid 博客id
      */
