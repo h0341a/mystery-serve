@@ -64,7 +64,14 @@ public class BlogService implements AdminBlogService, UserBlogService {
 
     @Override
     public void deleteBlog(int bid) throws BusinessException {
-        if (blogDao.deleteByPrimaryKey(bid) != 1){
+        Blog blog = blogDao.selectByPrimaryKey(bid);
+        if (blog != null){
+            blogDao.deleteByPrimaryKey(bid);
+            //If no blog in the current category, delete it.
+            if(blogDao.selectByCategoryId(Integer.valueOf(blog.getCategoryId())).size() == 0){
+                categoryDao.deleteByPrimaryKey(blog.getCategoryId());
+            }
+        }else{
             throw new BusinessException(ErrorCodeEnum.DATA_ABORT, "没有你要删除的博客");
         }
     }
