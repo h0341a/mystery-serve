@@ -18,6 +18,8 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * @author ling
+ * !!!This controller are no loner vaild. This api have been taken over by spring security.
+ * !!!keep them just for calling this address in swagger2.
  */
 @Api(tags = "管理员登录管理")
 @RestController
